@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rachna Turns 50</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #14100C;
+    --near-black: #1C1611;
+    --cream: #FBF6EF;
+    --champagne: #E9D3AE;
+    --champagne-bright: #F6E4C4;
+    --rose-gold: #E3AC93;
+    --rose-gold-2: #D68F72;
+    --rose-gold-glow: #F0C4A8;
+    --rose-gold-hot: #E8A184;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--black);
+    font-family: 'Jost', sans-serif;
+    color: var(--cream);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .page { max-width: 780px; margin: 0 auto; padding: 0 20px 60px; }
+
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 64px;
+    background: radial-gradient(ellipse at 50% 100%, #2a1a14 0%, var(--black) 65%);
+    border-bottom: 1px solid rgba(227,172,147,0.35);
+    isolation: isolate;
+  }
+
+  /* everything that must not spill past the hero lives in this clipped layer */
+  .bg-clip { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+
+  #bg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* stage light beams, back to full strength per feedback */
+  .beams { position: absolute; inset: 0; }
+  .beam {
+    position: absolute;
+    bottom: -10%;
+    left: 50%;
+    width: 150px;
+    height: 170%;
+    transform-origin: bottom center;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+    filter: blur(2px);
+  }
+  .beam-1 { background: linear-gradient(0deg, rgba(214,143,114,0.4), transparent 70%); animation: swing1 4.5s ease-in-out infinite; }
+  .beam-2 { background: linear-gradient(0deg, rgba(227,172,147,0.38), transparent 70%); animation: swing2 3.8s ease-in-out infinite; }
+  .beam-3 { background: linear-gradient(0deg, rgba(240,196,168,0.36), transparent 70%); animation: swing3 5.2s ease-in-out infinite; }
+  .beam-4 { background: linear-gradient(0deg, rgba(232,161,132,0.38), transparent 70%); animation: swing4 4.1s ease-in-out infinite; }
+
+  @keyframes swing1 { 0%,100% { transform: translateX(-300px) rotate(-34deg); } 50% { transform: translateX(-200px) rotate(-12deg); } }
+  @keyframes swing2 { 0%,100% { transform: translateX(-120px) rotate(-16deg); } 50% { transform: translateX(-40px) rotate(6deg); } }
+  @keyframes swing3 { 0%,100% { transform: translateX(50px) rotate(4deg); } 50% { transform: translateX(130px) rotate(18deg); } }
+  @keyframes swing4 { 0%,100% { transform: translateX(210px) rotate(14deg); } 50% { transform: translateX(300px) rotate(34deg); } }
+
+  .content { position: relative; z-index: 2; padding: 0 20px; }
+
+  .hero-frame {
+    position: absolute;
+    top: 24px; bottom: 24px; left: 24px; right: 24px;
+    border: 1px solid rgba(227,172,147,0.55);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-size: clamp(10px, 3vw, 13px);
+    letter-spacing: clamp(0.22em, 6vw, 0.5em);
+    text-transform: uppercase;
+    color: var(--rose-gold-hot);
+    margin: 0 0 24px;
+    animation: pulse-soft 2.8s ease-in-out infinite;
+  }
+  .eyebrow-mid { margin: 14px 0 28px; }
+  .eyebrow-top {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(15px, 4.5vw, 20px);
+    letter-spacing: 0.1em;
+    text-transform: none;
+    color: var(--champagne-bright);
+    margin: 0 0 10px;
+  }
+
+  .name-wrap {
+    position: relative;
+    padding: 8px 0 6px;
+    margin: 0 0 8px;
+  }
+  .glow-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 280px;
+    height: 280px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,196,168,0.32) 0%, rgba(214,143,114,0.10) 45%, transparent 70%);
+    animation: ring-pulse 3.4s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes ring-pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.65; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  }
+
+  .name {
+    position: relative;
+    z-index: 1;
+    font-family: 'Bebas Neue', 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: clamp(30px, 9vw, 46px);
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    margin: 0;
+    text-transform: uppercase;
+    color: var(--champagne-bright);
+  }
+
+  .fifty {
+    position: relative;
+    z-index: 1;
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(88px, 26vw, 148px);
+    line-height: 1;
+    margin: 6px 0 0;
+    background: linear-gradient(100deg, var(--champagne-bright) 0%, var(--rose-gold-hot) 30%, var(--rose-gold-glow) 55%, var(--champagne-bright) 80%, var(--rose-gold-hot) 100%);
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer-text 4.5s ease-in-out infinite, breathe 3s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes shimmer-text {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
+  }
+
+  .countdown { display: flex; justify-content: center; gap: 6px; margin: 0 0 44px; flex-wrap: nowrap; }
+  .unit {
+    position: relative;
+    padding: 18px 20px;
+    min-width: 82px;
+    flex: 1 1 auto;
+    border: 1px solid rgba(232,161,132,0.45);
+    background: linear-gradient(180deg, rgba(227,172,147,0.12), rgba(214,143,114,0.02));
+    box-shadow: 0 0 24px rgba(232,161,132,0.12);
+    overflow: hidden;
+  }
+  .unit .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    display: block;
+    background: linear-gradient(180deg, var(--rose-gold-glow), var(--rose-gold-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .unit .lbl {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--champagne);
+    opacity: 0.75;
+    display: block;
+    margin-top: 8px;
+  }
+  .colon { display: flex; align-items: center; font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--rose-gold-hot); padding: 0 2px; animation: pulse-soft 1.4s ease-in-out infinite; }
+
+  .divider { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 0 0 36px; }
+  .divider .line { height: 1px; width: 70px; background: linear-gradient(90deg, transparent, var(--rose-gold-hot), transparent); }
+  .divider .mark { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose-gold-glow); }
+
+  .details { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin: 0 0 40px; }
+  .detail { text-align: center; }
+  .detail .k { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose-gold-hot); margin: 0 0 8px; }
+  .detail .v { font-size: 16px; color: var(--cream); font-weight: 300; }
+  .detail .v-link { color: var(--rose-gold-hot); font-size: 13px; text-decoration: none; border-bottom: 1px solid rgba(232,161,132,0.4); }
+
+  .cta {
+    display: inline-block;
+    padding: 16px 48px;
+    background: linear-gradient(100deg, var(--rose-gold-glow), var(--rose-gold-2));
+    color: var(--black);
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    box-shadow: 0 0 30px rgba(232,161,132,0.4);
+    animation: cta-pulse 3s ease-in-out infinite;
+  }
+  @keyframes cta-pulse {
+    0%, 100% { box-shadow: 0 0 18px rgba(232,161,132,0.28); }
+    50% { box-shadow: 0 0 34px rgba(232,161,132,0.52); }
+  }
+
+  .rsvp-note {
+    max-width: 380px;
+    margin: 18px auto 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--champagne);
+    opacity: 0.75;
+  }
+
+  .gifts-note {
+    max-width: 380px;
+    font-size: clamp(11px, 3.2vw, 13px);
+    font-style: italic;
+    color: var(--rose-gold-glow);
+    opacity: 0.8;
+    margin: 12px auto 0;
+  }
+
+  .hotel-block {
+    margin: 36px auto 0;
+    max-width: 420px;
+    padding: 18px 24px;
+    border: 1px solid rgba(232,161,132,0.3);
+    background: rgba(227,172,147,0.05);
+  }
+  .hotel-block .h-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose-gold-glow);
+    margin: 0 0 8px;
+  }
+  .hotel-block .h-body {
+    font-size: 13px;
+    color: var(--champagne);
+    opacity: 0.85;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+  .hotel-block .h-link {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rose-gold-hot);
+    text-decoration: underline;
+  }
+
+  .note { text-align: center; font-size: 12px; color: var(--champagne); opacity: 0.55; margin-top: 44px; line-height: 1.7; position: relative; z-index: 2; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .beam, .fifty, .colon, .eyebrow, .cta, .glow-ring { animation: none !important; }
+  }
+
+  @media (max-width: 420px) {
+    .countdown { gap: 3px; }
+    .unit { min-width: 0; flex: 1 1 0; padding: 10px 3px; }
+    .unit .num { font-size: 24px; }
+    .unit .lbl { font-size: 7px; letter-spacing: 0.08em; margin-top: 4px; }
+    .colon { flex: 0 0 auto; font-size: 16px; padding: 0; }
+    .eyebrow { font-size: 9px; letter-spacing: 0.15em; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-frame"></div>
+    <div class="bg-clip">
+      <canvas id="bg-canvas"></canvas>
+      <div class="beams">
+        <div class="beam beam-1"></div>
+        <div class="beam beam-2"></div>
+        <div class="beam beam-3"></div>
+        <div class="beam beam-4"></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <p class="eyebrow eyebrow-top">Join us for an unforgettable night&#8230;</p>
+
+      <div class="name-wrap">
+        <div class="glow-ring"></div>
+        <h1 class="name">Rachna turns</h1>
+        <span class="fifty">50</span>
+      </div>
+
+      <p class="eyebrow eyebrow-mid">The countdown has begun</p>
+
+      <div class="countdown">
+        <div class="unit"><span class="num" id="cd-days">00</span><span class="lbl">Days</span></div>
+        <div class="colon">:</div>
+        <div class="unit"><span class="num" id="cd-hours">00</span><span class="lbl">Hours</span></div>
+        <div class="colon">:</div>
+        <div class="unit"><span class="num" id="cd-min">00</span><span class="lbl">Min</span></div>
+        <div class="colon">:</div>
+        <div class="unit"><span class="num" id="cd-sec">00</span><span class="lbl">Sec</span></div>
+      </div>
+
+      <div class="divider"><span class="line"></span><span class="mark">Save the date</span><span class="line"></span></div>
+
+      <div class="details">
+        <div class="detail"><p class="k">Date</p><p class="v">Saturday, November 14, 2026</p></div>
+        <div class="detail"><p class="k">Time</p><p class="v">8:00 PM &#8211; 2:00 AM</p></div>
+        <div class="detail"><p class="k">Venue</p><p class="v">Nirvana Lounge &amp; Bar<br><a class="v-link" href="https://www.google.com/maps/search/?api=1&amp;query=Nirvana+Lounge+%26+Bar+340+W+Las+Colinas+Blvd+Irving+TX+75039" target="_blank" rel="noopener">Get directions &#8594;</a></p></div>
+        <div class="detail"><p class="k">Dress code</p><p class="v">Indian or Western glam</p></div>
+        <div class="detail"><p class="k">Guests</p><p class="v">Adults only, +1s welcome</p></div>
+      </div>
+
+      <a class="cta" href="https://evite.me/bkaYw9xqtV" target="_blank" rel="noopener">RSVP now</a>
+
+      <p class="rsvp-note">Please RSVP by November 1st, as this is a private event at a public venue, so only confirmed guests will be admitted at the door.</p>
+
+      <p class="gifts-note">No gifts, please, your presence is the only gift needed.</p>
+
+      <div class="hotel-block">
+        <p class="h-title">Staying over?</p>
+        <p class="h-body">We've held a room block at the Westin, next door to the venue, ideal if you're coming from out of town or don't want to drive home after. Book by <strong>Friday, October 16</strong> for the group rate. Fully refundable up to 3 days before the event date.</p>
+        <a class="h-link" href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1787336419229&amp;key=GRP&amp;app=resvlink" target="_blank" rel="noopener">Reserve your room &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var canvas = document.getElementById('bg-canvas');
+  var hero = document.querySelector('.hero');
+  var ctx = canvas.getContext('2d');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var dust = [];
+  var dustCount = 90;
+  var dustColors = ['rgba(232,161,132,', 'rgba(240,196,168,', 'rgba(227,172,147,', 'rgba(251,246,239,'];
+
+  var flares = [];
+  var flareColors = ['#F6E4C4', '#F0C4A8', '#E3AC93'];
+
+  function resize() {
+    var rect = hero.getBoundingClientRect();
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  }
+
+  function initDust() {
+    var rect = hero.getBoundingClientRect();
+    dust = [];
+    for (var i = 0; i < dustCount; i++) {
+      dust.push({
+        x: Math.random() * rect.width,
+        y: Math.random() * rect.height,
+        r: Math.random() * 1.5 + 0.4,
+        speedY: Math.random() * 0.3 + 0.08,
+        drift: Math.random() * 0.3 - 0.15,
+        twinkleSpeed: Math.random() * 0.03 + 0.012,
+        twinklePhase: Math.random() * Math.PI * 2,
+        color: dustColors[Math.floor(Math.random() * dustColors.length)]
+      });
+    }
+  }
+
+  function drawStar(cx, cy, size, alpha, color) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(0, -size);
+    ctx.lineTo(size * 0.18, -size * 0.18);
+    ctx.lineTo(size, 0);
+    ctx.lineTo(size * 0.18, size * 0.18);
+    ctx.lineTo(0, size);
+    ctx.lineTo(-size * 0.18, size * 0.18);
+    ctx.lineTo(-size, 0);
+    ctx.lineTo(-size * 0.18, -size * 0.18);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function maybeSpawnFlare() {
+    if (Math.random() < 0.035) {
+      var rect = hero.getBoundingClientRect();
+      flares.push({
+        x: Math.random() * rect.width,
+        y: Math.random() * rect.height,
+        age: 0,
+        life: Math.random() * 40 + 50,
+        maxSize: Math.random() * 7 + 6,
+        color: flareColors[Math.floor(Math.random() * flareColors.length)]
+      });
+    }
+  }
+
+  function tick() {
+    var rect = hero.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+
+    for (var i = 0; i < dust.length; i++) {
+      var p = dust[i];
+      p.twinklePhase += p.twinkleSpeed;
+      var alpha = 0.2 + 0.5 * Math.abs(Math.sin(p.twinklePhase));
+      ctx.beginPath();
+      ctx.fillStyle = p.color + alpha.toFixed(2) + ')';
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (!reduceMotion) {
+        p.y -= p.speedY;
+        p.x += p.drift;
+        if (p.y < -4) { p.y = rect.height + 4; p.x = Math.random() * rect.width; }
+        if (p.x < -4) p.x = rect.width + 4;
+        if (p.x > rect.width + 4) p.x = -4;
+      }
+    }
+
+    if (!reduceMotion) {
+      maybeSpawnFlare();
+      for (var j = flares.length - 1; j >= 0; j--) {
+        var f = flares[j];
+        f.age++;
+        var t = f.age / f.life;
+        var size, alpha;
+        if (t < 0.3) {
+          size = f.maxSize * (t / 0.3);
+          alpha = t / 0.3;
+        } else {
+          size = f.maxSize;
+          alpha = 1 - ((t - 0.3) / 0.7);
+        }
+        drawStar(f.x, f.y, size, Math.max(alpha, 0) * 0.9, f.color);
+        if (f.age >= f.life) flares.splice(j, 1);
+      }
+    }
+
+    if (!reduceMotion) requestAnimationFrame(tick);
+  }
+
+  resize();
+  initDust();
+  window.addEventListener('resize', function() { resize(); initDust(); });
+  tick();
+  if (reduceMotion) {
+    setInterval(tick, 1200);
+  }
+})();
+
+(function() {
+  // Party start: 8:00 PM CST, Saturday November 14, 2026.
+  // Nov 14, 2026 falls after the US DST end date (first Sunday in November),
+  // so Central time is standard CST (UTC-6) on that date: 8:00 PM CST = 2:00 AM UTC, Nov 15.
+  var target = Date.UTC(2026, 10, 15, 2, 0, 0);
+
+  var elDays = document.getElementById('cd-days');
+  var elHours = document.getElementById('cd-hours');
+  var elMin = document.getElementById('cd-min');
+  var elSec = document.getElementById('cd-sec');
+
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  function update() {
+    var now = Date.now();
+    var diff = target - now;
+
+    if (diff <= 0) {
+      elDays.textContent = '00';
+      elHours.textContent = '00';
+      elMin.textContent = '00';
+      elSec.textContent = '00';
+      clearInterval(timer);
+      return;
+    }
+
+    var totalSeconds = Math.floor(diff / 1000);
+    var days = Math.floor(totalSeconds / 86400);
+    var hours = Math.floor((totalSeconds % 86400) / 3600);
+    var minutes = Math.floor((totalSeconds % 3600) / 60);
+    var seconds = totalSeconds % 60;
+
+    elDays.textContent = pad(days);
+    elHours.textContent = pad(hours);
+    elMin.textContent = pad(minutes);
+    elSec.textContent = pad(seconds);
+  }
+
+  update();
+  var timer = setInterval(update, 1000);
+})();
+</script>
+</body>
+</html>
